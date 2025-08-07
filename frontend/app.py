@@ -9,16 +9,31 @@
    without redirection
 """
 
-from flask import Flask,jsonify
+from flask import Flask,jsonify,render_template,request
 import json
 import requests
+
 
 BACKEND_URL = "http://127.0.0.1:7000"
 
 app = Flask(__name__)
 @app.route('/')
 def index():
-    return "Welcome to the Flask Application"
+    """Render the main page."""
+    return render_template('index.html')
+
+@app.route('/submit', methods=['POST'])
+def submit_data():
+    form_data = dict(request.form)
+    print("Form Data Received:", form_data) 
+    try:
+        requests.post(BACKEND_URL + '/submit', json=form_data)
+        return render_template('submit_success.html', message="Data submitted successfully")
+    except requests.exceptions.RequestException as e:
+        print("Error during submission:", e)
+        
+
+
 
 @app.route('/api',methods=['GET'])
 def api():

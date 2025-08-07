@@ -9,8 +9,24 @@
    without redirection
 """
 
-from flask import Flask,jsonify
+from flask import Flask,jsonify,request
 import json
+from dotenv import load_dotenv
+from pymongo.mongo_client import MongoClient
+import os
+
+uri = os.getenv("uri")
+client = MongoClient(uri)
+
+# Send a ping to confirm a successful connection
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
+
+db = client.test  #creates database named test
+collection = db['flask-assessment']  #creates collection named flask-assessment
 
 app = Flask(__name__)
 @app.route('/view')
@@ -18,6 +34,12 @@ def get_data():
     with open("data.json","r") as file:
         data = json.load(file)
     return jsonify(data)
+
+@app.route('/submit', methods=['POST'])
+def submit_data():
+    form_data = request.json
+    collection.insert_one(form_data)
+    return 'Data submitted successfully'
 
 if __name__ == '__main__':
     app.run(host = '0.0.0.0',port = 7000,debug=True)

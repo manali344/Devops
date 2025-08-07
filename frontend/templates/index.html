@@ -1,0 +1,107 @@
+<!--
+1. Create a Flask application with an /api route. 
+   When this route is accessed, it should return a JSON list. 
+   The data should be stored in a backend file, read from it, and sent as a response.
+2. Create a form on the frontend that, when submitted, inserts data into MongoDB Atlas. 
+   Upon successful submission, the user should be redirected to another page 
+   displaying the message "Data submitted successfully". 
+   If there's an error during submission, display the error on the same page 
+   without redirection
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Styled Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .form-card {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .form-card h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: border-color 0.3s;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    button,
+      .view-button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <form action="/submit" method="POST" class="form-card">
+    <h2>Register</h2>
+
+    <label for="data">Enter Your Name</label>
+    <input type="text" id="data" name="data" required>
+
+    <label for="email">Enter Your Email</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="password">Enter Your Password</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Submit</button>
+  </form>
+
+</body>
+</html>
